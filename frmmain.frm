@@ -151,12 +151,17 @@ Private Sub Command1_Click()
 Dim i As Long
     
     If frmMain.lblstatus.Visible = False Then Exit Sub
+    
     Command1.Enabled = False
     
-    If File_Exists(App.Path & "\..\recursos\INIT\Minimap.dat", vbNormal) Then Kill App.Path & "\..\recursos\INIT\minimap.dat"
+    If File_Exists(App.Path & "\..\recursos\INIT\Minimap.bin", vbNormal) Then Kill App.Path & "\..\recursos\INIT\minimap.bin"
+    
     Shape1.Width = 0
-    Open App.Path & "\..\recursos\INIT\MiniMap.dat" For Binary Access Write As #1
+    
+    Open App.Path & "\..\recursos\INIT\MiniMap.bin" For Binary Access Write As #1
+    
         Seek #1, 1
+        
         For i = 1 To grhCount
             If GrhData(i).Active = True Then
                 Picture1.Cls
@@ -167,10 +172,15 @@ Dim i As Long
             End If
             DoEvents
         Next i
+        
     Close #1
+    
     Kill App.Path & "\temp\*.*"
+    
     lblstatus = "Finalizado!"
+    
     MsgBox "Finalizado!"
+    
     Unload Me
     
 End Sub
@@ -179,8 +189,6 @@ Private Sub Command2_Click()
     Call LoadGrh
     Command2.Enabled = False
 End Sub
-
-
 
 Private Sub Form_Unload(Cancel As Integer)
 End
